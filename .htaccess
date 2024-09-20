@@ -1,4 +1,42 @@
 RewriteEngine On
+
 RewriteCond %{REQUEST_FILENAME} !-d
+
 RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php
+
+RewriteRule ^login$ login.php [L]
+
+
+# {{host}}/view_donations/35
+# {{host}}/update_donation_request/21
+# {{host}}/update_patient_request/1
+# {{host}}/donor_history
+
+RewriteRule ^register$ register.php [L]
+RewriteRule ^blood_stock$ blood_stock.php [L]
+RewriteRule ^donor_history$ donor_history.php [L]
+RewriteRule ^patient_history$ patient_history.php [L]
+RewriteRule ^donation_requests$ donation_requests.php [L]
+RewriteRule ^patient_requests$ patient_requests.php [L]
+RewriteRule ^login$ login.php [L]
+# Rewrite for viewdonations
+RewriteRule ^view_donations/([0-9]+)$ view_donations.php?user_id=$1 [L]
+# RewriteRule   ^wiki/(.+)$   w/index.php?title=$1   [L]
+
+# Rewrite for viewrequests
+RewriteRule ^view_requests/([0-9]+)$ view_requests.php?user_id=$1 [L]
+
+#rewrite for donorform
+RewriteRule ^donor_form/([0-9]+)$ donor_form.php?user_id=$1 [L]
+
+#rewrite for patientform
+RewriteRule ^patient_form/([0-9]+)$ patient_form.php?user_id=$1 [L]
+
+# Rewrite for update_donation_request
+RewriteRule ^update_donation_request/([0-9]+)$ update_donation_request.php?donation_id=$1 [L]
+
+# Rewrite for update_patient_request
+RewriteRule ^update_patient_request/([0-9]+)$ update_patient_request.php?request_id=$1 [L]
+
+
+# RewriteRule ^(.*)$ $1.php [L]

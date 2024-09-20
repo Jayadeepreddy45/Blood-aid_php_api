@@ -6,17 +6,20 @@ header("Content-Type: application/json; charset=UTF-8");
 //header("Access-Control-Max-Age: 3600");
 //header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$user_id = 15;
+$user_id = $_REQUEST['user_id'];
 $qery = $conn->prepare("SELECT units, disease, donated_date, status FROM donation WHERE user_id = ?");
 $qery->bind_param("s", $user_id);
 $qery->execute();
 
 // Store the result
 $result = $qery->get_result();
-$data = array();
+$donations = array();
 while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+    $donations[] = $row;
 }
 $qery->close();
-echo json_encode($data);
+
+$response = array("donations" => $donations);
+
+echo json_encode($response);
 ?>

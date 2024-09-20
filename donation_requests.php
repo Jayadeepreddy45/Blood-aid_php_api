@@ -48,10 +48,13 @@ $qery = $conn->prepare("SELECT donation_id, username, blood_group, units, diseas
                                     JOIN donation ON user.user_id = donation.user_id");
 $qery->execute();
 $result = $qery->get_result();
-$data = array();
+$donationrequests = array();
 while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+    $donationrequests[] = $row;
 }
 $qery->close();
-echo json_encode($data);
+
+$response = array("donationrequests" => $donationrequests);
+
+echo json_encode($response);
 ?>

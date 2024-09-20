@@ -1,20 +1,24 @@
-<?php include('database.php');
-//header("Access-Control-Allow-Origin: *");
+<?php 
+include('database.php');
+
+// Set the response header to JSON
 header("Content-Type: application/json; charset=UTF-8");
-//header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-//header("Access-Control-Max-Age: 3600");
-//header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // Prepare and execute the query
-$qery = $conn->prepare("SELECT * FROM blood_stock");
+$qery = $conn->prepare("SELECT bloodgroup, units FROM blood_stock");
 $qery->execute();
 
 // Get the result set
 $result = $qery->get_result();
-$data = array();
+$blood_stock = array();
+
+// Fetch the data and store it in a dictionary-like array where bloodgroup is the key
 while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+    $blood_stock[$row['bloodgroup']] = $row['units'];
 }
+
 $qery->close();
-echo json_encode($data);
+
+// Output the data as JSON
+echo json_encode($blood_stock);
 ?>
